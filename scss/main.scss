@@ -1,0 +1,83 @@
+/* comment1 */
+
+// var
+$baseFontSize: 18px;
+$imgDir: "../img/";
+$brandColor: red;
+$debugMode: true;
+
+// syntax
+@for $i from 10 through 12 {
+  .fs#{$i} { font-size: #{$i}px; }
+}
+$i: 13;
+@while $i <= 15 {
+  .fs#{$i} { font-size: #{$i}px; }
+  $i: $i + 1;
+}
+
+// list
+$animals: cat, dog, tiger;
+@each $animal in $animals {
+  .#{$animal}-icon { background: url("#{$animal}.png"); }
+}
+
+// function
+@import "settings";
+@import "functions";
+
+.grid {
+  float: left;
+  width: getColumnWidth($totalWidth, $columnCount);
+}
+
+// mixin
+@mixin round($radius) {
+  border-radius: $radius;
+}
+.label {
+  font-size: 12px;
+  @include round(10px);
+}
+
+// extend
+.msg {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 4px;
+  color: white;
+}
+.errorMsg {
+  @extend .msg;
+  background: red;
+}
+.warningMsg {
+  @extend .msg;
+  background: orange;
+}
+
+#main {
+  @if $debugMode == true {
+    color: white;
+  } @else {
+    color: green;
+  }
+
+  width: 90%;
+  background: url("#{$imgDir}bg.png");
+
+  p {
+    color: lighten($brandColor, 20%);
+    font-size: $baseFontSize;
+    .sub {
+      font-size: $baseFontSize - 4px;
+    }
+
+    a {
+      text-decoration: none;
+      &:hover {
+        font-weight: bold;
+      }
+    }
+  }
+}
